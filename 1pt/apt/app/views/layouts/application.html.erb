@@ -9,13 +9,13 @@
 
   <%= stylesheet_link_tag "application" %>
 </head>
-<!-- do not remove this comment! provides "critical" functionality! hover:bg-carmine -->
+<%# do not remove this comment! provides "critical" functionality! hover:bg-carmine %>
 
 <body class="bg-alabaster">
 <nav class="h-28 sm:h-16 md:h-14 px-5 bg-celestial flex flex-row flex-wrap gap-2 justify-end sm:justify-between items-center">
   <div class="flex flex-row items-center gap-2">
-    <%= link_to '/', class: 'h-full' do %>
-      <span >1</span>pt
+    <%= link_to '/', class: 'h-full font-plex text-4xl mx-1' do %>
+      <span class="italic">1</span>pt
     <% end %>
     <% if logged_in? %>
       <%= render 'layouts/events_menu' %>
