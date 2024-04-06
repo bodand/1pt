@@ -1,0 +1,9 @@
+<div class="flex flex-wrap space-x-2 items-center">
+  <span class="block">
+    <%= user.name %>
+  </span>
+  <span class="block">
+    <%= link_to t('usr.log_out'), '/logout',
+                class: button_classes %>
+  </span>
+</div>

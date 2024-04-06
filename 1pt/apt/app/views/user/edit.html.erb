@@ -1,0 +1,19 @@
+<div class="mx-4 w-full flex flex-col">
+  <%= form_for @user, url: '/user/update' do |form| %>
+    <h3 class="w-fit mb-1 lg:mb-2 text-2xl">Change user data</h3>
+    <%= render "user/form_data", { form: form, submit_name: t("save"), properties: {
+      name: :text_field,
+      username: :text_field,
+      email: :email_field,
+    } } %>
+  <% end %>
+
+  <%= form_for @user, url: '/user/passwd' do |form| %>
+    <h3 class="w-fit mb-1 lg:mb-2 text-2xl">Change password</h3>
+    <%= render "user/form_data", { form: form, submit_name: t("save"), properties: {
+      current_password: :password_field,
+      password: :password_field,
+      password_confirmation: :password_field,
+    } } %>
+  <% end %>
+</div>

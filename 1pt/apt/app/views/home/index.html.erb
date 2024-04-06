@@ -1,0 +1,15 @@
+<div class="flex flex-col items-center w-full">
+  <h1 class="text-4xl">Welcome to 1pt!</h1>
+  <div class="mt-4 text-4xl">
+    <%= link_to "Create new event", "/event/new", class: button_classes %>
+  </div>
+
+  <%= form_tag "/event/show", class: "mt-8 flex flex-col items-end" do %>
+    <%= label_tag :event_id, class: "w-full" do %>
+      Or open one by its id
+    <% end %>
+
+    <%= text_field_tag :event_id %>
+    <%= submit_tag t('open'), class: 'mt-2 ' + button_classes %>
+  <% end %>
+</div>

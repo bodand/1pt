@@ -28,4 +28,18 @@
 #       enabled: "ON"
 
 en:
+  "$self": "en"
+  usr:
+    register: "Register"
+    log_in: "Log in"
+    log_out: "Log out"
+    reg-rather: "Register instead"
+    login-rather: "Log in instead"
   hello: "Hello world"
+  save: "Save"
+  open: "Open"
+  events:
+    my: "My events"
+    new: "New event"
+    see: "See responses"
+    respond: "Respond"
