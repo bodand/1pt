@@ -44,3 +44,7 @@ en:
     see: "See responses"
     respond: "Respond"
     name: "Event:"
+  stat:
+    ok: "Available"
+    maybe: "Maybe"
+    "no": "Unavailable"

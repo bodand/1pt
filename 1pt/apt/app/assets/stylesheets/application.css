@@ -52,6 +52,10 @@ form.new_event {
     grid-column: 4;
 }
 
+.col-5 {
+    grid-column: 5;
+}
+
 @media (min-width: 780px) {
     .kinda-sm\:w-fit {
         width: fit-content;

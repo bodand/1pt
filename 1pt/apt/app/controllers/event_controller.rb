@@ -1,4 +1,5 @@
 class EventController < ApplicationController
+
   def new
     @event = Event.new
   end
@@ -43,7 +44,15 @@ class EventController < ApplicationController
   end
 
   def show
+    @response_types = [
+      { type: :ok, text: I18n.t('stat.ok') },
+      { type: :maybe, text: I18n.t('stat.maybe') },
+      { type: :no, text: I18n.t('stat.no') },
+    ]
+    @default_response = @response_types[-1]
+
     @event = Event.new id: 1, name: 'Event Name'
+    @response = Response.new event_id: @event.id
     @entries = [
       DateTime.iso8601('2024-12-12T09:15:00Z'),
       DateTime.iso8601('2024-12-12T10:15:00Z'),
