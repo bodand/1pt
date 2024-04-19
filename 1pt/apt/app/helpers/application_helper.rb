@@ -4,10 +4,6 @@ module ApplicationHelper
   end
 
   def logged_in?
-    true
-  end
-
-  def current_user
-    User.new id: 1, name: 'Teszt Béla'
+    session[:user_id] != nil
   end
 end

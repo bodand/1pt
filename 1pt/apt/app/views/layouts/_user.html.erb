@@ -1,9 +1,10 @@
 <div class="flex flex-wrap space-x-2 items-center">
   <span class="block">
-    <%= user.name %>
+    <%= link_to user.name, user_edit_path(user.id),
+                                          class: button_classes %>
   </span>
   <span class="block">
-    <%= link_to t('usr.log_out'), '/logout',
+    <%= link_to t('usr.log_out'), session_logout_path,
                 class: button_classes %>
   </span>
 </div>

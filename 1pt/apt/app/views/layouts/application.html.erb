@@ -22,12 +22,31 @@
     <% end %>
   </div>
   <% if logged_in? %>
-    <%= render partial: 'layouts/user', locals: { user: current_user } %>
+    <%= render partial: 'layouts/user', locals: { user: @current_user } %>
   <% else %>
     <%= render 'layouts/guest' %>
   <% end %>
 </nav>
-<main class="container mx-auto mt-16 flex">
+<main class="container mx-auto mt-16 flex flex-col">
+  <div class="flex flex-col items-center">
+    <% if flash && flash.key?(:errors) %>
+      <% flash[:errors].each { |error| %>
+        <div class="border-b-2 border-b border-carmine px-2 text-carmine">
+          <%= error %>
+        </div>
+      <% } %>
+    <% end %>
+  </div>
+  <div class="flex flex-col items-center">
+    <% if flash && flash.key?(:notices) %>
+      <% flash[:notices].each { |error| %>
+        <div class="border-b-2 border-b border-charcoal px-2 text-charcoal">
+          <%= error %>
+        </div>
+      <% } %>
+    <% end %>
+  </div>
+
   <%= yield %>
 </main>
 </body>

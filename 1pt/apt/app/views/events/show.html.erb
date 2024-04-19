@@ -4,7 +4,7 @@
     <h1 class="mb-8 lg:mb-4 text-4xl"><%= @event.name %></h1>
   </div>
 
-  <%= form_for :response do |form| %>
+  <%= form_for :response, url: event_fill_path do |form| %>
     <div class="flex flex-col gap-2">
       <% @entries.each_with_index { |entry, i| %>
         <div class="flex flex-row gap-2">
@@ -35,7 +35,7 @@
 
     <div class="mt-8 flex flex-col w-fit">
       <% if logged_in? %>
-        <%= form.hidden_field :user_id, value: current_user.id %>
+        <%= form.hidden_field :user_id, value: @current_user.id %>
       <% else %>
         <h2 class="text-xl">Respond as</h2>
         <%= form.text_field :responder %>
