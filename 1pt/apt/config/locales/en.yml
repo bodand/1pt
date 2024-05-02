@@ -48,3 +48,4 @@ en:
     ok: "Available"
     maybe: "Maybe"
     "no": "Unavailable"
+  invalid_event_identifier: "Invalid event identifier"

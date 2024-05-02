@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :events, only: [:new, :create, :index, :show] do
     get 'r', to: 'events#respond', as: :responses
   end
+  post 'events/find', to: 'events#find_event', as: :find_events
   post 'events/:id/fill', to: 'events#save_response', as: :event_fill
 
   get 'register', to: "users#register", as: :register

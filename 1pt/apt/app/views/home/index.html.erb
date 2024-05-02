@@ -1,10 +1,14 @@
 <div class="flex flex-col items-center w-full">
   <h1 class="text-4xl">Welcome to 1pt!</h1>
   <div class="mt-4 text-4xl">
-    <%= link_to "Create new event", "/event/new", class: button_classes %>
+    <% if logged_in? %>
+      <%= link_to "Create new event", new_event_url, class: button_classes %>
+    <% else %>
+      <%= link_to "Create new event", register_url, class: button_classes %>
+    <% end %>
   </div>
 
-  <%= form_tag "/event/show", class: "mt-8 flex flex-col items-end" do %>
+  <%= form_tag find_events_url, class: "mt-8 flex flex-col items-end" do %>
     <%= label_tag :event_id, class: "w-full" do %>
       Or open one by its id
     <% end %>

@@ -22,6 +22,16 @@ class EventsController < ApplicationController
     end
   end
 
+  def find_event
+    return redirect_back fallback_location: :root_page_url if params[:event_id].nil?
+
+    event = Event.find_by(id: params[:event_id])
+    return redirect_to event_url(event.id), id: event.id unless event.nil?
+
+    flash[:errors] = [I18n.t('invalid_event_identifier')]
+    redirect_back fallback_location: :root_page_url
+  end
+
   def index
     @events = Event.where(user_id: @current_user.id).all
   end
@@ -76,7 +86,11 @@ class EventsController < ApplicationController
     ]
     @default_response = @response_types[-1]
 
-    @event = Event.find(params[:id])
+    event_params = params.permit :id, :event_id
+    id = event_params[:event_id]
+    id = event_params[:id] unless id
+
+    @event = Event.find(id)
     unless @event
       flash[:errors] = ["There is no such event"]
       return redirect_back fallback_location: root_page_path
