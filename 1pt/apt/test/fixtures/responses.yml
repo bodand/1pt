@@ -1,11 +1,9 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  responder: MyString
-  user: one
-  event: one
+resp1-outsider:
+  responder: Outside user
+  event: pizza
 
-two:
-  responder: MyString
-  user: two
-  event: two
+resp2-user:
+  user: one
+  event: pizza
