@@ -3,5 +3,5 @@ class ApplicationRecord < ActiveRecord::Base
 
   RealNameFormat = { with: /\A[\p{L}\d .-]+\z/, message: I18n.t('errors.illegal_char') }
   EmailFormat = { with: /@/, message: I18n.t('errors.invalid_email') }
-  UsernameFormat = { with: /\A[\w|\[\]()&+-]+\Z/, message: I18n.t('errors.illegal_char') }
+  UsernameFormat = { with: /\A[a-zA-Z0-9_|\[\]()&+-]+\Z/, message: I18n.t('errors.illegal_char') }
 end

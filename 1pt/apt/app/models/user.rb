@@ -19,6 +19,8 @@ class User < ApplicationRecord
 
   def self.authenticate(username, password)
     @user = User.find_by username: username
-    @user.authenticate password if @user
+    return nil unless @user
+    return nil unless @user.authenticate password
+    @user
   end
 end
