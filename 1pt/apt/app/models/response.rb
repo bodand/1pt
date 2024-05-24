@@ -4,13 +4,13 @@ class Response < ApplicationRecord
 
   has_many :response_entries
 
-  validates :user_id,
+  validates :user,
             presence: true,
             if: -> { responder.blank? }
   validates :responder,
             presence: true,
-            format: { with: /\A[\p{L}\d .-]+\z/, message: I18n.t('errors.illegal_char') },
-            if: -> { user_id.blank? }
+            format: RealNameFormat,
+            if: -> { user.blank? }
 
   def responder_name
     if user

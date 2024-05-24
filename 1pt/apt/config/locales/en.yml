@@ -52,3 +52,4 @@ en:
   errors:
     illegal_char: "contains illegal characters"
     invalid_status: "%{value} is not a valid response"
+    invalid_email: "invalid email format"

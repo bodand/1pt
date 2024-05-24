@@ -6,13 +6,16 @@ class User < ApplicationRecord
   validates :username,
             presence: true,
             uniqueness: true,
-            format: { with: /\A[\w|\[\]()&+-]+\Z/ }
+            format: UsernameFormat
   validates :password,
             presence: true
+  validates :name,
+            presence: true,
+            format: RealNameFormat
   validates :email,
             presence: true,
             uniqueness: true,
-            format: { with: /@/ }
+            format: EmailFormat
 
   def self.authenticate(username, password)
     @user = User.find_by username: username
