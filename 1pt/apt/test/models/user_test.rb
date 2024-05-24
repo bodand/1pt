@@ -36,6 +36,32 @@ class UserTest < ActiveSupport::TestCase
     assert_invalid sut, name: I18n.t('errors.illegal_char')
   end
 
+  test "User with already in use email is invalid" do
+    sut = new_user email: users(:one).email
+    assert_invalid sut, email: "has already been taken"
+  end
+
+  test "User with already in use username is invalid" do
+    sut = new_user username: users(:one).username
+    assert_invalid sut, username: "has already been taken"
+  end
+
+  test "missing user does not authenticate" do
+    found = User.authenticate "MISSING_USER", 'irrelevant'
+    assert_nil found
+  end
+
+  test "user with invalid password does not authenticate" do
+    found = User.authenticate users(:one).username, 'INVALID PASSWORD STRING'
+    assert_nil found
+  end
+
+  test "user with valid password authenticates" do
+    found = User.authenticate users(:one).username, 'password1'
+    assert_not_nil found
+    assert_equal users(:one), found
+  end
+
   private
 
   def new_user(**args)
