@@ -49,3 +49,6 @@ en:
     maybe: "Maybe"
     "no": "Unavailable"
   invalid_event_identifier: "Invalid event identifier"
+  errors:
+    illegal_char: "contains illegal characters"
+    invalid_status: "%{value} is not a valid response"
