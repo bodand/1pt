@@ -1,3 +1,19 @@
+require 'simplecov'
+SimpleCov.start 'rails' do
+  add_filter %r{^/bin/}
+  add_filter %r{^/config/}
+  add_filter %r{^/db/}
+  add_filter %r{^/test/}
+
+  # ignore default generated Rails files that are unused
+  add_filter do |source_file|
+    source_file.lines.count < 5
+  end
+
+  add_group "Models", "app/models"
+  add_group "Controllers", "app/controllers"
+end
+
 ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"
 require "rails/test_help"
