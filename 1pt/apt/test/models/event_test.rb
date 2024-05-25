@@ -44,6 +44,6 @@ class EventTest < ActiveSupport::TestCase
   private
 
   def new_event(**args)
-    Event.new(user: User.new, **args)
+    Event.new(user: User.new(id: -1), **args)
   end
 end

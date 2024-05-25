@@ -1,8 +1,12 @@
 <div>
-  <%= link_to t('events.new'), new_event_path,
+  <%= link_to t('events.new'),
+              new_event_path,
+              id: 'user_new_event',
               class: button_classes %>
 </div>
 <div>
-  <%= link_to t('events.my'), events_path,
+  <%= link_to t('events.my'),
+              events_path,
+              id: 'user_events',
               class: button_classes %>
 </div>

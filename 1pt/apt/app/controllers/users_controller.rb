@@ -11,7 +11,7 @@ class UsersController < ApplicationController
     @user = User.new(user_register_params)
     if @user.save
       session[:user_id] = @user.id
-      return redirect_to login_path
+      return redirect_to root_page_path
     end
     flash[:errors] = @user.errors.full_messages
     redirect_back fallback_location: root_page_path
@@ -25,7 +25,9 @@ class UsersController < ApplicationController
   end
 
   def update
-    unless @current_user.update(user_update_params)
+    if @current_user.update(user_update_params)
+      flash[:notices] = ["Saved successfully"]
+    else
       flash[:errors] = @current_user.errors.full_messages
     end
     redirect_back fallback_location: root_page_path
@@ -35,12 +37,11 @@ class UsersController < ApplicationController
     @params = user_password_params
     @user = @current_user.authenticate @params[:current_password]
     unless @user
-      flash[:errors] = [ "Invalid password" ]
+      flash[:errors] = ["Invalid password"]
       return redirect_back fallback_location: root_page_path
     end
 
-    @user.update(@params.permit(:password, :password_confirmation))
-    if @user.save
+    if @user.update(@params.permit(:password, :password_confirmation))
       flash[:notices] = ["Saved successfully"]
     else
       flash[:errors] = @user.errors.full_messages
@@ -58,7 +59,7 @@ class UsersController < ApplicationController
   def user_password_params
     params.require(:user).permit(:current_password, :password, :password_confirmation)
   end
-  
+
   def user_update_params
     params.require(:user).permit(:name, :username, :email)
   end

@@ -1,7 +1,7 @@
 <div class="mx-4 w-full flex flex-col">
   <aside class="flex flex-col">
     <h1 class="mb-1 lg:mb-2 text-4xl">Register an 1pt user</h1>
-    <%= link_to t('usr.login-rather'), login_path, class: 'w-fit ' + button_classes %>
+    <%= link_to t('usr.login-rather'), login_path, id: 'reg_to_login', class: 'w-fit ' + button_classes %>
   </aside>
 
   <%= form_for @user, url: user_create_path do |form| %>

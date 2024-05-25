@@ -8,7 +8,8 @@ class User < ApplicationRecord
             uniqueness: true,
             format: UsernameFormat
   validates :password,
-            presence: true
+            presence: true,
+            on: :create
   validates :name,
             presence: true,
             format: RealNameFormat

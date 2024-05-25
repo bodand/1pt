@@ -65,6 +65,6 @@ class UserTest < ActiveSupport::TestCase
   private
 
   def new_user(**args)
-    User.new(**args)
+    User.new(id: -1, **args)
   end
 end

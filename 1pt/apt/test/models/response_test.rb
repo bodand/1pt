@@ -28,21 +28,25 @@ class ResponseTest < ActiveSupport::TestCase
   end
 
   test "Response with with user has user's name as name" do
-    user = User.new(name: 'Basil Test')
+    user = new_user name: 'Basil Test'
     sut = new_response user: user
     assert_equal user.name, sut.responder_name
   end
 
   test "Response with with user has user's name with responder set as name" do
     resp_name = 'John Doe'
-    user = User.new(name: 'Basil Test')
+    user = new_user name: 'Basil Test'
     sut = new_response user: user, responder: resp_name
     assert_equal user.name, sut.responder_name
   end
 
   private
 
+  def new_user(**args)
+    User.new(id: -1, **args)
+  end
+
   def new_response(**args)
-    Response.new event: Event.new, **args
+    Response.new(id: -1, event: Event.new(id: -1), **args)
   end
 end

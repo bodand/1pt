@@ -20,6 +20,6 @@ class ResponseEntryTest < ActiveSupport::TestCase
   private
 
   def new_resentry(**args)
-    ResponseEntry.new response: Response.new, event_entry: EventEntry.new, **args
+    ResponseEntry.new id: -1, response: Response.new(id: -1), event_entry: EventEntry.new(id: -1), **args
   end
 end

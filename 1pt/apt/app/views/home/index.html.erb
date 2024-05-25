@@ -2,9 +2,9 @@
   <h1 class="text-4xl">Welcome to 1pt!</h1>
   <div class="mt-4 text-4xl">
     <% if logged_in? %>
-      <%= link_to "Create new event", new_event_url, class: button_classes %>
+      <%= link_to "Create new event", new_event_url, id: 'create_event', class: button_classes %>
     <% else %>
-      <%= link_to "Create new event", register_url, class: button_classes %>
+      <%= link_to "Create new event", register_url, id: 'create_event', class: button_classes %>
     <% end %>
   </div>
 
@@ -14,6 +14,6 @@
     <% end %>
 
     <%= text_field_tag :event_id %>
-    <%= submit_tag t('open'), class: 'mt-2 ' + button_classes %>
+    <%= submit_tag t('open'), id: 'open_event', class: 'mt-2 ' + button_classes %>
   <% end %>
 </div>
