@@ -125,7 +125,6 @@ GEM
       net-smtp
     marcel (1.0.4)
     matrix (0.4.2)
-    mime-types (2.99.3)
     mini_mime (1.1.5)
     minitest (5.22.2)
     msgpack (1.7.2)
@@ -247,7 +246,6 @@ DEPENDENCIES
   capybara
   debug
   jbuilder
-  mime-types (~> 2.6, >= 2.6.1)
   parallel_tests
   pg (~> 1.1)
   puma (>= 5.0)
