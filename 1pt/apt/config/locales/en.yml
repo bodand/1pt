@@ -39,7 +39,9 @@ en:
     reg-rather: "Register instead"
     login-rather: "Log in instead"
   hello: "Hello world"
-  save: "Save"
+  save:
+    passwd: "Change password"
+    default: "Save"
   open: "Open"
   events:
     my: "My events"
