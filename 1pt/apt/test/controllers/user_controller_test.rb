@@ -40,6 +40,7 @@ class UserControllerTest < ActionDispatch::IntegrationTest
     }
     follow_redirect!
     refute_nil session[:user_id]
+    assert_response :success
     assert_select "a#create_event", "Create new event"
     assert_select "a#user_edit", href: "/users/#{session[:user_id]}", text: 'Teszt Béla'
     assert_select "a#user_logout", href: '/sessions/logout', text: I18n.t('usr.log_out')
@@ -57,6 +58,7 @@ class UserControllerTest < ActionDispatch::IntegrationTest
     }
     follow_redirect!
     refute_empty flash[:errors]
+    assert_response :success
     assert_select 'div > div.border-b-2.border-carmine', 'Username has already been taken'
   end
 
@@ -66,30 +68,14 @@ class UserControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "user edit redirects to own edit page when not logged in as different user" do
-    # login
-    post session_login_path, params: {
-      user: {
-        username: users(:two).username,
-        password: 'password2'
-      }
-    }
-    follow_redirect!
-    refute_nil session[:user_id]
+    do_login
 
     get user_edit_path(users(:one))
     assert_redirected_to user_edit_path(users(:two))
   end
 
   test "user edit shows user information" do
-    # login
-    post session_login_path, params: {
-      user: {
-        username: users(:two).username,
-        password: 'password2'
-      }
-    }
-    follow_redirect!
-    refute_nil session[:user_id]
+    do_login
 
     get user_edit_path(users(:two))
     assert_select "form[action=\"#{update_user_path(users(:two))}\"]", method: 'post' do |f|
@@ -101,15 +87,7 @@ class UserControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "user edit does not show password" do
-    # login
-    post session_login_path, params: {
-      user: {
-        username: users(:two).username,
-        password: 'password2'
-      }
-    }
-    follow_redirect!
-    refute_nil session[:user_id]
+    do_login
 
     get user_edit_path(users(:two))
     assert_select "form[action=\"#{update_user_passwd_path(users(:two))}\"]", method: 'post' do |f|
@@ -121,15 +99,7 @@ class UserControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "user update updates user" do
-    # login
-    post session_login_path, params: {
-      user: {
-        username: users(:two).username,
-        password: 'password2'
-      }
-    }
-    follow_redirect!
-    refute_nil session[:user_id]
+    do_login
 
     get user_edit_path(users(:two))
     patch update_user_path(users(:two)),
@@ -140,8 +110,9 @@ class UserControllerTest < ActionDispatch::IntegrationTest
          } },
          headers: { HTTP_REFERER: user_edit_path(users(:two)) }
     follow_redirect!
-    assert_select 'div.border-b-2.border-carmine', count: 0
-    assert_select 'div.border-b-2.border-charcoal', count: 1, text: 'Saved successfully'
+    assert_response :success
+    refute_ui_errors
+    assert_ui_msg 'Saved successfully'
     assert_select "form[action=\"#{update_user_path(users(:two))}\"]", method: 'post' do |f|
       assert_select f, 'h3.text-2xl', 'Change user data'
       assert_select f, 'label[for=user_name] ~ input[type=text]', name: 'user[name]', value: users(:two).name
@@ -151,15 +122,7 @@ class UserControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "user update fails with invalid user data" do
-    # login
-    post session_login_path, params: {
-      user: {
-        username: users(:two).username,
-        password: 'password2'
-      }
-    }
-    follow_redirect!
-    refute_nil session[:user_id]
+    do_login
 
     get user_edit_path(users(:two))
     patch update_user_path(users(:two)),
@@ -170,7 +133,8 @@ class UserControllerTest < ActionDispatch::IntegrationTest
          } },
          headers: { HTTP_REFERER: user_edit_path(users(:two)) }
     follow_redirect!
-    assert_select 'div.border-b-2.border-carmine', count: 1, text: 'Username has already been taken'
+    assert_response :success
+    assert_ui_error 'Username has already been taken'
     assert_select "form[action=\"#{update_user_path(users(:two))}\"]", method: 'post' do |f|
       assert_select f, 'h3.text-2xl', 'Change user data'
       assert_select f, 'label[for=user_name] ~ input[type=text]', name: 'user[name]', value: users(:two).name
@@ -180,15 +144,7 @@ class UserControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "user update passwords updates password" do
-    # login
-    post session_login_path, params: {
-      user: {
-        username: users(:two).username,
-        password: 'password2'
-      }
-    }
-    follow_redirect!
-    refute_nil session[:user_id]
+    do_login
 
     get user_edit_path(users(:two))
     patch update_user_passwd_path(users(:two)),
@@ -199,8 +155,9 @@ class UserControllerTest < ActionDispatch::IntegrationTest
          } },
          headers: { HTTP_REFERER: user_edit_path(users(:two)) }
     follow_redirect!
-    assert_select 'div.border-b-2.border-carmine', count: 0
-    assert_select 'div.border-b-2.border-charcoal', count: 1, text: 'Saved successfully'
+    assert_response :success
+    refute_ui_errors
+    assert_ui_msg 'Saved successfully'
     assert_select "form[action=\"#{update_user_passwd_path(users(:two))}\"]", method: 'post' do |f|
       assert_select f, 'h3.text-2xl', 'Change password'
       assert_select f, 'label[for=user_current_password] ~ input[type=password]', name: 'user[current_password]', value: ''
@@ -210,15 +167,7 @@ class UserControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "user update passwords fails with invalid password" do
-    # login
-    post session_login_path, params: {
-      user: {
-        username: users(:two).username,
-        password: 'password2'
-      }
-    }
-    follow_redirect!
-    refute_nil session[:user_id]
+    do_login
 
     get user_edit_path(users(:two))
     patch update_user_passwd_path(users(:two)),
@@ -229,19 +178,12 @@ class UserControllerTest < ActionDispatch::IntegrationTest
          } },
          headers: { HTTP_REFERER: user_edit_path(users(:two)) }
     follow_redirect!
-    assert_select 'div.border-b-2.border-carmine', count: 1, text: 'Invalid password'
+    assert_response :success
+    assert_ui_error 'Invalid password'
   end
 
   test "user update passwords fails with invalid new password confirmation" do
-    # login
-    post session_login_path, params: {
-      user: {
-        username: users(:two).username,
-        password: 'password2'
-      }
-    }
-    follow_redirect!
-    refute_nil session[:user_id]
+    do_login
 
     get user_edit_path(users(:two))
     patch update_user_passwd_path(users(:two)),
@@ -252,7 +194,8 @@ class UserControllerTest < ActionDispatch::IntegrationTest
          } },
          headers: { HTTP_REFERER: user_edit_path(users(:two)) }
     follow_redirect!
-    assert_select 'div.border-b-2.border-carmine', count: 1, text: "Password confirmation doesn't match Password"
+    assert_response :success
+    assert_ui_error "Password confirmation doesn't match Password"
   end
 
   test "user api list can find existing users" do

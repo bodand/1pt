@@ -12,6 +12,31 @@ module ActiveSupport
     fixtures :all
 
     # Add more helper methods to be used by all tests here...
+    def do_login
+      post session_login_path, params: {
+        user: {
+          username: users(:two).username,
+          password: 'password2'
+        }
+      }
+      follow_redirect!
+      assert_response :success
+      refute_nil session[:user_id]
+    end
+
+    def assert_ui_error(msg)
+      assert_select 'div.border-b-2.border-carmine', count: 1, text: msg
+    end
+
+    def assert_ui_msg(msg)
+      assert_select 'div.border-b-2.border-charcoal', count: 1, text: msg
+    end
+
+    def refute_ui_errors
+      assert_select 'div.border-b-2.border-carmine', count: 0
+    end
+    alias assert_not_ui_errors refute_ui_errors
+
     def assert_valid(record)
       assert_predicate record, :valid?, record.errors.full_messages.to_sentence
     end

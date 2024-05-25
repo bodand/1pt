@@ -29,6 +29,9 @@
 
 en:
   "$self": "en"
+  time:
+    formats:
+      time: '%H:%M'
   usr:
     register: "Register"
     log_in: "Log in"
@@ -53,3 +56,7 @@ en:
     illegal_char: "contains illegal characters"
     invalid_status: "%{value} is not a valid response"
     invalid_email: "invalid email format"
+    login_needed_to_create_event: "You must be logged in to create an event"
+    login_needed_to_see_events: "You must be logged in to see your events"
+    missing_event: "There is no such event"
+    missing_event_id: "Event identifier must be provided"

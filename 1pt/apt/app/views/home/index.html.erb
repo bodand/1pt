@@ -2,13 +2,13 @@
   <h1 class="text-4xl">Welcome to 1pt!</h1>
   <div class="mt-4 text-4xl">
     <% if logged_in? %>
-      <%= link_to "Create new event", new_event_url, id: 'create_event', class: button_classes %>
+      <%= link_to "Create new event", new_event_path, id: 'create_event', class: button_classes %>
     <% else %>
-      <%= link_to "Create new event", register_url, id: 'create_event', class: button_classes %>
+      <%= link_to "Create new event", register_path, id: 'create_event', class: button_classes %>
     <% end %>
   </div>
 
-  <%= form_tag find_events_url, class: "mt-8 flex flex-col items-end" do %>
+  <%= form_tag find_events_path, class: "mt-8 flex flex-col items-end" do %>
     <%= label_tag :event_id, class: "w-full" do %>
       Or open one by its id
     <% end %>

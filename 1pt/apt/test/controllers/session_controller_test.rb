@@ -33,14 +33,7 @@ class SessionControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'sessions logout logged in user can log out' do
-    post session_login_path, params: {
-      user: {
-        username: users(:two).username,
-        password: 'password2'
-      }
-    }
-    follow_redirect!
-    refute_nil session[:user_id]
+    do_login
     get session_logout_path
     follow_redirect!
 
