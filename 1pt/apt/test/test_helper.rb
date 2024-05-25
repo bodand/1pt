@@ -28,11 +28,11 @@ module ActiveSupport
     fixtures :all
 
     # Add more helper methods to be used by all tests here...
-    def do_login
+    def do_login(user = :two, password = "password2")
       post session_login_path, params: {
         user: {
-          username: users(:two).username,
-          password: 'password2'
+          username: users(user).username,
+          password: password
         }
       }
       follow_redirect!

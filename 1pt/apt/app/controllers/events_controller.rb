@@ -75,7 +75,7 @@ class EventsController < ApplicationController
   end
 
   def save_response
-    event = Event.find_by(id: params[:id])
+    event = Event.includes(:event_entries).find_by(id: params[:id])
     if event.blank?
       flash[:errors] = [I18n.t('errors.missing_event')]
       return redirect_back fallback_location: root_page_path
@@ -87,11 +87,9 @@ class EventsController < ApplicationController
       { entry: {} }
     )
 
-    event_entries = EventEntry.where(event_id: params[:id]).all
     resp_params[:entry] ||= {}
-
     resp_params[:response_entries] = resp_params[:entry].keys.map do |idx|
-      ResponseEntry.new(stat: resp_params[:entry][idx], event_entry: event_entries[idx.to_i])
+      ResponseEntry.new(stat: resp_params[:entry][idx], event_entry: event.event_entries[idx.to_i])
     end
     resp_params[:event_id] = params[:id]
     resp_params = resp_params.except(:entry)
