@@ -36,7 +36,7 @@ class EventsController < ApplicationController
     @events = Event.where(user_id: @current_user.id).all
   end
 
-  def respond
+  def get_responses
     @event = Event.where(id: params[:event_id]).includes(responses: [:user, response_entries: [:event_entry]]).first
     unless @event
       flash[:errors] = ["There is no such event"]
