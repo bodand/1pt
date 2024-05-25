@@ -134,7 +134,7 @@ class EventControllerTest < ActionDispatch::IntegrationTest
     events(:pizza).event_entries.each do |e|
       assert_select 'div.text-xl.col-1', text: e.as_rendered, count: 1
     end
-    assert_select 'div.flex.flex-col > h2.text-xl', count: 1, text: 'Respond as'
+    assert_select 'div.flex.flex-col > h2.text-xl > label', count: 1, text: 'Respond as'
     assert_select 'div.flex.flex-col > h2.text-xl ~ input[type=text]', count: 1
     assert_select 'div.flex.flex-col > input[type=submit]', count: 1, value: 'Save Response'
   end
