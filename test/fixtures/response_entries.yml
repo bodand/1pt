@@ -1,0 +1,32 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+re1-e0:
+  stat: ok
+  response: resp1-outsider
+  event_entry: pizza-opt1
+
+re1-e1:
+  stat: 'no'
+  response: resp1-outsider
+  event_entry: pizza-opt2
+
+r1-e2:
+  stat: maybe
+  response: resp1-outsider
+  event_entry: pizza-opt3
+
+re2-e0:
+  stat: 'no'
+  response: resp2-user
+  event_entry: pizza-opt1
+
+re2-e1:
+  stat: 'maybe'
+  response: resp2-user
+  event_entry: pizza-opt2
+
+r2-e2:
+  stat: ok
+  response: resp2-user
+  event_entry: pizza-opt3
+
